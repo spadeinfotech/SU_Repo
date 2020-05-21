@@ -2,12 +2,12 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="i2o Sound united Automation" duration-ms="98063" started-at="2020-05-20T16:06:11Z" finished-at="2020-05-20T16:07:49Z">
+  <suite name="i2o Sound united Automation" duration-ms="105844" started-at="2020-05-21T19:40:43Z" finished-at="2020-05-21T19:42:28Z">
     <groups>
     </groups>
-    <test name="i2o SU sanity testing" duration-ms="98063" started-at="2020-05-20T16:06:11Z" finished-at="2020-05-20T16:07:49Z">
+    <test name="i2o SU sanity testing" duration-ms="105844" started-at="2020-05-21T19:40:43Z" finished-at="2020-05-21T19:42:28Z">
       <class name="com.cc.startup.Startup">
-        <test-method status="PASS" signature="RuntestSuite()[pri:0, instance:com.cc.startup.Startup@13c78c0b]" name="RuntestSuite" duration-ms="98041" started-at="2020-05-20T21:36:11Z" finished-at="2020-05-20T21:37:49Z">
+        <test-method status="PASS" signature="RuntestSuite()[pri:0, instance:com.cc.startup.Startup@54a097cc]" name="RuntestSuite" duration-ms="105805" started-at="2020-05-22T01:10:43Z" finished-at="2020-05-22T01:12:28Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- RuntestSuite -->
