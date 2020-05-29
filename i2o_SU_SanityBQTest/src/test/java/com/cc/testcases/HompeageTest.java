@@ -18,12 +18,13 @@ public class HompeageTest {
 	@Test
 	public void test() throws EncryptedDocumentException, InvalidFormatException, IOException, InterruptedException {
 		 System.out.println("under  Homepage test");
-	Testexecutor Te=new Testexecutor();
-	//Te.GetDatafromPrestageBQ(this.getClass().getSimpleName());
-	System.out.println("after prestage");
-	//Te.GetDatafromDataMartBQ(this.getClass().getSimpleName());
-	 System.out.println("after datamart");
+			Testexecutor Te=new Testexecutor();
+			Te.getAllcolumnsPrestage(this.getClass().getSimpleName());
+             System.out.println("after prestgae");
+           Te.getAllcolumnsDataMart(this.getClass().getSimpleName());
+			 System.out.println("after datamart");
 		this.utilServices.getPreAndMartDiff(this.getClass().getSimpleName(), lib);
+
 	}
 
 	

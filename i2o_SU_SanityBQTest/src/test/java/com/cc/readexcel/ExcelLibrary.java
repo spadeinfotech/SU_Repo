@@ -97,9 +97,6 @@ public class ExcelLibrary {
 			Workbook wb = WorkbookFactory.create(fis);
 			Sheet s = wb.getSheet(sheetName);
 			Row r = s.getRow(rowNum);
-			if (r == null) {
-				return;
-			}
 			Cell c = r.createCell(cellNum);
 			// c.setCellType(Cell.CELL_TYPE_NUMERIC);
 			// c.setCellType(Cell.CELL_TYPE_STRING);

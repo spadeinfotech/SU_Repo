@@ -1,0 +1,300 @@
+[RemoteTestNG] detected TestNG version 6.14.3
+Totalclients in  excel7
+ClientexecutionstatusYes
+Clientid in startupi2o-dev-su
+Under SU condition
+totaltests4
+executionstatusYes
+********************scenario name******************************HompeageTest
+class com.cc.testcases.HompeageTest
+under  Homepage test
+Clientid in testcexeutori2o-dev-su
+Totalteststeps in main excel3
+inside if
+LAST_WEEK_REVENUE
+querySELECT start_date,sum(cast(A.Shipped_COGS as float64)) cogs  FROM CC_I2O_DATA_PRE_STG.vc_sales_diagnostics_sourcing_detail A inner join CC_I2O_DATA_REPO.final_product_master_filtered B on A.ASIN =B.product_code    where  Reporting_Range ='Weekly' and B.org_type ='Amazon_1PP'  group by start_date order by  start_date desc limit 1
+queryBuildercom.google.cloud.bigquery.QueryJobConfiguration$Builder@7ceb3185
+returnSetTableResult{rows=[[FieldValue{attribute=PRIMITIVE, value=2020-05-17}, FieldValue{attribute=PRIMITIVE, value=1261187.72}]], schema=Schema{fields=[Field{name=start_date, type=STRING, mode=NULLABLE, description=null}, Field{name=cogs, type=FLOAT, mode=NULLABLE, description=null}]}, totalRows=1, cursor=null}
+val2020-05-17
+val1261187.72
+2020-05-17
+1261187.72
+inside if
+LAST_WEEK_UNITS
+querySELECT start_date,sum(cast(A.Shipped_Units  as float64)) units FROM CC_I2O_DATA_PRE_STG.vc_sales_diagnostics_sourcing_detail A inner join CC_I2O_DATA_REPO.final_product_master_filtered B on A.ASIN =B.product_code    where  Reporting_Range ='Weekly' and B.org_type ='Amazon_1PP'  group by start_date order by  start_date desc limit 1
+queryBuildercom.google.cloud.bigquery.QueryJobConfiguration$Builder@5f3b9c57
+returnSetTableResult{rows=[[FieldValue{attribute=PRIMITIVE, value=2020-05-17}, FieldValue{attribute=PRIMITIVE, value=7713.0}]], schema=Schema{fields=[Field{name=start_date, type=STRING, mode=NULLABLE, description=null}, Field{name=units, type=FLOAT, mode=NULLABLE, description=null}]}, totalRows=1, cursor=null}
+val2020-05-17
+val7713.0
+2020-05-17
+7713.0
+inside if
+LAST_WEEK_BBX_PCNT
+querySELECT start_date, Avg(100-cast(A.LBB_Price as float64)) bbx FROM CC_I2O_DATA_PRE_STG.vc_sales_diagnostics_manufacturing_detail A inner join CC_I2O_DATA_REPO.final_product_master_filtered B on A.ASIN =B.product_code    where  Reporting_Range ='Weekly' and B.org_type ='Amazon_1PP'  group by start_date order by  start_date desc limit 1
+queryBuildercom.google.cloud.bigquery.QueryJobConfiguration$Builder@5118388b
+returnSetTableResult{rows=[[FieldValue{attribute=PRIMITIVE, value=2020-05-17}, FieldValue{attribute=PRIMITIVE, value=88.113098591549331}]], schema=Schema{fields=[Field{name=start_date, type=STRING, mode=NULLABLE, description=null}, Field{name=bbx, type=FLOAT, mode=NULLABLE, description=null}]}, totalRows=1, cursor=null}
+val2020-05-17
+val88.11309859154933
+2020-05-17
+88.11309859154933
+after prestgae
+Clientid in testcexeutori2o-dev-su
+Totalteststeps in main excel3
+inside if
+LAST_WEEK_REVENUE
+queryselect Period, sum(product_sales) cogs from CC_I2O_DATA_MART.vc_viz_sales_analysis_filtered where time_range='Last Week' group by Period
+val1261187.7200000002
+1261187.7200000002
+inside if
+LAST_WEEK_UNITS
+queryselect Period, sum(product_units_sold) units from CC_I2O_DATA_MART.vc_viz_sales_analysis_filtered where time_range='Last Week' group by Period
+val7713.0
+7713.0
+inside if
+LAST_WEEK_BBX_PCNT
+queryselect Period, Avg(wbb) bbx from CC_I2O_DATA_MART.vc_viz_sales_conversion_filtered where time_range='Last Week' group by Period
+val88.21553488372092
+88.21553488372092
+after datamart
+writing in file.\Testcases\testscenarios.xlsx
+valFail
+not matching condition
+Compare last weeks cogs in Prestage and Data Mart
+ is failing for=i2o-dev-su
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+writing in file.\Testcases\testscenarios.xlsx
+valFail
+not matching condition
+Compare last weeks buy box % value in Prestage and  Data Mart
+ is failing for=i2o-dev-su
+val05/30/2020 00:01:39
+executionstatusYes
+********************scenario name******************************AsinLevelTest
+class com.cc.testcases.AsinLevelTest
+under  Asin Level test
+Clientid in testcexeutori2o-dev-su
+Totalteststeps in main excel20
+inside if
+PRODUCT_COGS
+querySELECT  m.product_code , cast(s.Shipped_COGS as float64) cogs FROM CC_I2O_DATA_REPO.final_product_master_filtered m inner  join CC_I2O_DATA_PRE_STG.vc_sales_diagnostics_sourcing_detail s on   s.ASIN=m.product_code    where  m.alerts_exceptions_enabled = true and  Reporting_Range ='Weekly'   order by cogs desc   limit 10
+queryBuildercom.google.cloud.bigquery.QueryJobConfiguration$Builder@51650883
+returnSetTableResult{rows=[[FieldValue{attribute=PRIMITIVE, value=B07H1B3PY9}, FieldValue{attribute=PRIMITIVE, value=174927.28}], [FieldValue{attribute=PRIMITIVE, value=B0002KVQBA}, FieldValue{attribute=PRIMITIVE, value=106110.6}], [FieldValue{attribute=PRIMITIVE, value=B00378KMEG}, FieldValue{attribute=PRIMITIVE, value=83846.4}], [FieldValue{attribute=PRIMITIVE, value=B00378KMG4}, FieldValue{attribute=PRIMITIVE, value=81858.96}], [FieldValue{attribute=PRIMITIVE, value=B00006BMQT}, FieldValue{attribute=PRIMITIVE, value=55882.2}], [FieldValue{attribute=PRIMITIVE, value=B01LW8H3NX}, FieldValue{attribute=PRIMITIVE, value=48110.94}], [FieldValue{attribute=PRIMITIVE, value=B002RJLHB8}, FieldValue{attribute=PRIMITIVE, value=47890.59}], [FieldValue{attribute=PRIMITIVE, value=B00378KMF0}, FieldValue{attribute=PRIMITIVE, value=36724.6}], [FieldValue{attribute=PRIMITIVE, value=B07QQ87Y6M}, FieldValue{attribute=PRIMITIVE, value=32340.0}], [FieldValue{attribute=PRIMITIVE, value=B07RN2XNK1}, FieldValue{attribute=PRIMITIVE, value=28512.0}]], schema=Schema{fields=[Field{name=product_code, type=STRING, mode=NULLABLE, description=null}, Field{name=cogs, type=FLOAT, mode=NULLABLE, description=null}]}, totalRows=10, cursor=null}
+valB07H1B3PY9
+val174927.28
+B07H1B3PY9
+174927.28
+valB0002KVQBA
+val106110.6
+B0002KVQBA
+106110.6
+valB00378KMEG
+val83846.4
+B00378KMEG
+83846.4
+valB00378KMG4
+val81858.96
+B00378KMG4
+81858.96
+valB00006BMQT
+val55882.2
+B00006BMQT
+55882.2
+valB01LW8H3NX
+val48110.94
+B01LW8H3NX
+48110.94
+valB002RJLHB8
+val47890.59
+B002RJLHB8
+47890.59
+valB00378KMF0
+val36724.6
+B00378KMF0
+36724.6
+valB07QQ87Y6M
+val32340.0
+B07QQ87Y6M
+32340.0
+valB07RN2XNK1
+val28512.0
+B07RN2XNK1
+28512.0
+inside if
+PRODUCT_UNITS
+querySELECT  m.product_code , cast(s.Shipped_Units  as float64) units FROM CC_I2O_DATA_REPO.final_product_master_filtered m inner  join CC_I2O_DATA_PRE_STG.vc_sales_diagnostics_sourcing_detail s on   s.ASIN=m.product_code    where  m.alerts_exceptions_enabled = true and  Reporting_Range ='Weekly'  order by cast(s.Shipped_COGS as float64) desc limit 10 
+queryBuildercom.google.cloud.bigquery.QueryJobConfiguration$Builder@2e27d72f
+returnSetTableResult{rows=[[FieldValue{attribute=PRIMITIVE, value=B07H1B3PY9}, FieldValue{attribute=PRIMITIVE, value=1055.0}], [FieldValue{attribute=PRIMITIVE, value=B0002KVQBA}, FieldValue{attribute=PRIMITIVE, value=1002.0}], [FieldValue{attribute=PRIMITIVE, value=B00378KMEG}, FieldValue{attribute=PRIMITIVE, value=791.0}], [FieldValue{attribute=PRIMITIVE, value=B00378KMG4}, FieldValue{attribute=PRIMITIVE, value=368.0}], [FieldValue{attribute=PRIMITIVE, value=B00006BMQT}, FieldValue{attribute=PRIMITIVE, value=376.0}], [FieldValue{attribute=PRIMITIVE, value=B01LW8H3NX}, FieldValue{attribute=PRIMITIVE, value=205.0}], [FieldValue{attribute=PRIMITIVE, value=B002RJLHB8}, FieldValue{attribute=PRIMITIVE, value=574.0}], [FieldValue{attribute=PRIMITIVE, value=B00378KMF0}, FieldValue{attribute=PRIMITIVE, value=345.0}], [FieldValue{attribute=PRIMITIVE, value=B07QQ87Y6M}, FieldValue{attribute=PRIMITIVE, value=82.0}], [FieldValue{attribute=PRIMITIVE, value=B07RN2XNK1}, FieldValue{attribute=PRIMITIVE, value=53.0}]], schema=Schema{fields=[Field{name=product_code, type=STRING, mode=NULLABLE, description=null}, Field{name=units, type=FLOAT, mode=NULLABLE, description=null}]}, totalRows=10, cursor=null}
+valB07H1B3PY9
+val1055.0
+B07H1B3PY9
+1055.0
+valB0002KVQBA
+val1002.0
+B0002KVQBA
+1002.0
+valB00378KMEG
+val791.0
+B00378KMEG
+791.0
+valB00378KMG4
+val368.0
+B00378KMG4
+368.0
+valB00006BMQT
+val376.0
+B00006BMQT
+376.0
+valB01LW8H3NX
+val205.0
+B01LW8H3NX
+205.0
+valB002RJLHB8
+val574.0
+B002RJLHB8
+574.0
+valB00378KMF0
+val345.0
+B00378KMF0
+345.0
+valB07QQ87Y6M
+val82.0
+B07QQ87Y6M
+82.0
+valB07RN2XNK1
+val53.0
+B07RN2XNK1
+53.0
+after prestgae
+Clientid in testcexeutori2o-dev-su
+Totalteststeps in main excel20
+inside if
+PRODUCT_COGS
+querySELECT  m.product_code , cast(s.Shipped_COGS as float64) cogs FROM CC_I2O_DATA_REPO.final_product_master_filtered m inner  join CC_I2O_DATA_PRE_STG.vc_sales_diagnostics_sourcing_detail s on   s.ASIN=m.product_code    where  m.alerts_exceptions_enabled = true and  Reporting_Range ='Weekly'   order by cogs desc   limit 10
+valB07H1B3PY9
+val174927.28
+valB0002KVQBA
+val106110.6
+valB00378KMEG
+val83846.4
+valB00378KMG4
+val81858.96
+valB00006BMQT
+val55882.2
+valB01LW8H3NX
+val48110.94
+valB002RJLHB8
+val47890.59
+valB00378KMF0
+val36724.6
+valB07QQ87Y6M
+val32340.0
+valB07RN2XNK1
+val28512.0
+inside if
+PRODUCT_UNITS
+querySELECT  m.product_code , cast(s.Shipped_Units  as float64) units FROM CC_I2O_DATA_REPO.final_product_master_filtered m inner  join CC_I2O_DATA_PRE_STG.vc_sales_diagnostics_sourcing_detail s on   s.ASIN=m.product_code    where  m.alerts_exceptions_enabled = true and  Reporting_Range ='Weekly'  order by cast(s.Shipped_COGS as float64) desc limit 10 
+valB07H1B3PY9
+val1055.0
+valB0002KVQBA
+val1002.0
+valB00378KMEG
+val791.0
+valB00378KMG4
+val368.0
+valB00006BMQT
+val376.0
+valB01LW8H3NX
+val205.0
+valB002RJLHB8
+val574.0
+valB00378KMF0
+val345.0
+valB07QQ87Y6M
+val82.0
+valB07RN2XNK1
+val53.0
+after datamart
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+writing in file.\Testcases\testscenarios.xlsx
+matching condition
+valPass
+val05/30/2020 00:02:13
+executionstatusNO
+executionstatusNO
+ClientexecutionstatusNo
+ClientexecutionstatusNo
+ClientexecutionstatusNo
+ClientexecutionstatusNo
+ClientexecutionstatusNo
+ClientexecutionstatusNo
+PASSED: RuntestSuite
+
+===============================================
+    Default test
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Default suite
+Total tests run: 1, Failures: 0, Skips: 0
+===============================================
+

@@ -25,6 +25,8 @@ public class Startup  {
 	  ExcelLibrary lib=new ExcelLibrary();
 	  int TotalClients = lib.Getrowcountfromclientfile("Clients");
 	  System.out.println("Totalclients in  excel" + TotalClients);
+
+	  
 for (int client = 1; client <= TotalClients; client++) {
 String Clientexecutionstatus=lib.getExcelValuegeneric("Clients", client, 1,".\\config\\Clients.xlsx");
 System.out.println("Clientexecutionstatus"+Clientexecutionstatus);
@@ -36,7 +38,8 @@ if(Clientexecutionstatus.equalsIgnoreCase("Yes")){
 
 	System.out.println("Clientid in startup"+Clientid);
 	  int  totaltests =0;
-	  if(Clientid.equals("i2o-dev-su"))	{
+	  
+if(Clientid.equals("i2o-dev-su"))	{
 		  file=".\\Testcases\\testscenarios.xlsx";
 		 
 		  totaltests = lib.Getrowcountgeneric("scenarios",file);
@@ -59,7 +62,7 @@ if(Clientexecutionstatus.equalsIgnoreCase("Yes")){
 			  	
 			  	System.out.println(c);
 			  	runTest.run(c);
-		lib.setExcelValueGeneric("scenarios", testscenario, 2, lib.getdateandtime(),file);
+			  	lib.setExcelValueGeneric("scenarios", testscenario, 2, lib.getdateandtime(),file);
 			  	} catch (ClassNotFoundException e) {
 			  	// TODO Auto-generated catch block
 			  	e.printStackTrace();
@@ -67,11 +70,7 @@ if(Clientexecutionstatus.equalsIgnoreCase("Yes")){
 
 			  }
 			  	
-			  	}		
-			
-			
-			 
-			
+			  	}			
 		}
 	  else  if(Clientid.equals("i2o-dev-cedar"))	{
 		  file=".\\Testcases\\testscenarios-cedar.xlsx";
@@ -95,8 +94,9 @@ if(Clientexecutionstatus.equalsIgnoreCase("Yes")){
 			  	c = Class.forName("com.cc.testcases."+scenarioname);
 			  	
 			  	System.out.println(c);
-			  	 lib.setExcelValueGeneric("scenarios", testscenario, 2, lib.getdateandtime(),file);
+			  	 
 			  	runTest.run(c);
+			  	lib.setExcelValueGeneric("scenarios", testscenario, 2, lib.getdateandtime(),file);
 			  	} catch (ClassNotFoundException e) {
 			  	// TODO Auto-generated catch block
 			  	e.printStackTrace();
@@ -105,12 +105,195 @@ if(Clientexecutionstatus.equalsIgnoreCase("Yes")){
 			  }
 			  	
 			  	}	
-			
-			
+					
+		}
+	  else if(Clientid.equals("i2o-dev-victrola"))	{
+		  file=".\\Testcases\\testscenarios-victrola.xlsx";
+		 
+		  totaltests = lib.Getrowcountgeneric("scenarios",file);
+			System.out.println("Under Victrola condition");
+			 System.out.println("totaltests"+totaltests);
+			  for(int testscenario=1;testscenario<=totaltests;testscenario++) {
+         String scenariosexecutionstatus=lib.getExcelValuegeneric("scenarios", testscenario, 1,file);
+			  	System.out.println("executionstatus"+scenariosexecutionstatus);
+//			  	System.out.println(executionstatus);
+			  	if(scenariosexecutionstatus.equalsIgnoreCase("yes")) {
+			  String scenarioname=lib.getExcelValue("scenarios", testscenario, 0);
+			  System.out.println("********************scenario name******************************"+scenarioname);
+
+			  JUnitCore runTest = new JUnitCore();
+			  @SuppressWarnings("rawtypes")
+			  Class c;
+			  try {
+			  	
+			  	c = Class.forName("com.cc.testcases."+scenarioname);
+			  	
+			  	System.out.println(c);
+			  	runTest.run(c);
+			  	lib.setExcelValueGeneric("scenarios", testscenario, 2, lib.getdateandtime(),file);
+			  	} catch (ClassNotFoundException e) {
+			  	// TODO Auto-generated catch block
+			  	e.printStackTrace();
+			       }	
+			  catch (Exception e) {
+				  	// TODO Auto-generated catch block
+				  	e.printStackTrace();
+				       }	
+			  }
+			  	
+			  	}			 
 			
 		}
-	  
+else if(Clientid.equals("i2o-dev-dell"))	{
+	  file=".\\Testcases\\testscenarios-dell.xlsx";
+	 
+	  totaltests = lib.Getrowcountgeneric("scenarios",file);
+		System.out.println("Under dell condition");
+		 System.out.println("totaltests"+totaltests);
+		  for(int testscenario=1;testscenario<=totaltests;testscenario++) {
+   String scenariosexecutionstatus=lib.getExcelValuegeneric("scenarios", testscenario, 1,file);
+		  	System.out.println("executionstatus"+scenariosexecutionstatus);
+//		  	System.out.println(executionstatus);
+		  	if(scenariosexecutionstatus.equalsIgnoreCase("yes")) {
+		  String scenarioname=lib.getExcelValue("scenarios", testscenario, 0);
+		  System.out.println("********************scenario name******************************"+scenarioname);
 
+		  JUnitCore runTest = new JUnitCore();
+		  @SuppressWarnings("rawtypes")
+		  Class c;
+		  try {
+		  	
+		  	c = Class.forName("com.cc.testcases."+scenarioname);
+		  	
+		  	System.out.println(c);
+		  	runTest.run(c);
+		  	lib.setExcelValueGeneric("scenarios", testscenario, 2, lib.getdateandtime(),file);
+		  	} catch (ClassNotFoundException e) {
+		  	// TODO Auto-generated catch block
+		  	e.printStackTrace();
+		       }	
+
+		  }
+		  	
+		  	}			
+	}
+else if(Clientid.equals("i2o-dev-jvc"))	{
+	  file=".\\Testcases\\testscenarios-jvc.xlsx";
+	 
+	  totaltests = lib.Getrowcountgeneric("scenarios",file);
+		System.out.println("Under dell condition");
+		 System.out.println("totaltests"+totaltests);
+		  for(int testscenario=1;testscenario<=totaltests;testscenario++) {
+ String scenariosexecutionstatus=lib.getExcelValuegeneric("scenarios", testscenario, 1,file);
+		  	System.out.println("executionstatus"+scenariosexecutionstatus);
+//		  	System.out.println(executionstatus);
+		  	if(scenariosexecutionstatus.equalsIgnoreCase("yes")) {
+		  String scenarioname=lib.getExcelValue("scenarios", testscenario, 0);
+		  System.out.println("********************scenario name******************************"+scenarioname);
+
+		  JUnitCore runTest = new JUnitCore();
+		  @SuppressWarnings("rawtypes")
+		  Class c;
+		  try {
+		  	
+		  	c = Class.forName("com.cc.testcases."+scenarioname);
+		  	
+		  	System.out.println(c);
+		  	runTest.run(c);
+		  	lib.setExcelValueGeneric("scenarios", testscenario, 2, lib.getdateandtime(),file);
+		  	} catch (ClassNotFoundException e) {
+		  	// TODO Auto-generated catch block
+		  	e.printStackTrace();
+		       }	
+
+		  }
+		  	
+		  	}			
+	}
+else if(Clientid.equals("i2o-dev-ecovacs"))	{
+	  file=".\\Testcases\\testscenarios-ecovacs.xlsx";
+	 
+	  totaltests = lib.Getrowcountgeneric("scenarios",file);
+		System.out.println("Under dell condition");
+		 System.out.println("totaltests"+totaltests);
+		  for(int testscenario=1;testscenario<=totaltests;testscenario++) {
+String scenariosexecutionstatus=lib.getExcelValuegeneric("scenarios", testscenario, 1,file);
+		  	System.out.println("executionstatus"+scenariosexecutionstatus);
+//		  	System.out.println(executionstatus);
+		  	if(scenariosexecutionstatus.equalsIgnoreCase("yes")) {
+		  String scenarioname=lib.getExcelValue("scenarios", testscenario, 0);
+		  System.out.println("********************scenario name******************************"+scenarioname);
+
+		  JUnitCore runTest = new JUnitCore();
+		  @SuppressWarnings("rawtypes")
+		  Class c;
+		  try {
+		  	
+		  	c = Class.forName("com.cc.testcases."+scenarioname);
+		  	
+		  	System.out.println(c);
+		  	runTest.run(c);
+		  	lib.setExcelValueGeneric("scenarios", testscenario, 2, lib.getdateandtime(),file);
+		  	} catch (ClassNotFoundException e) {
+		  	// TODO Auto-generated catch block
+		  	e.printStackTrace();
+		       }	
+
+		  }
+		  	
+		  	}			
+	}
+else if(Clientid.equals("i2o-dev-ausgold"))	{
+	  file=".\\Testcases\\testscenarios-ausgold.xlsx";
+	 
+	  totaltests = lib.Getrowcountgeneric("scenarios",file);
+		System.out.println("Under dell condition");
+		 System.out.println("totaltests"+totaltests);
+		  for(int testscenario=1;testscenario<=totaltests;testscenario++) {
+String scenariosexecutionstatus=lib.getExcelValuegeneric("scenarios", testscenario, 1,file);
+		  	System.out.println("executionstatus"+scenariosexecutionstatus);
+//		  	System.out.println(executionstatus);
+		  	if(scenariosexecutionstatus.equalsIgnoreCase("yes")) {
+		  String scenarioname=lib.getExcelValue("scenarios", testscenario, 0);
+		  System.out.println("********************scenario name******************************"+scenarioname);
+
+		  JUnitCore runTest = new JUnitCore();
+		  @SuppressWarnings("rawtypes")
+		  Class c;
+		  try {
+		  	
+		  	c = Class.forName("com.cc.testcases."+scenarioname);
+		  	
+		  	System.out.println(c);
+		  	runTest.run(c);
+		  	lib.setExcelValueGeneric("scenarios", testscenario, 2, lib.getdateandtime(),file);	
+		  	} catch (ClassNotFoundException e) {
+		  	// TODO Auto-generated catch block
+		  	e.printStackTrace();
+		       }	
+
+		  }
+		  	
+		  	}			
+	}	  	  	  	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
   }
 }
 	}

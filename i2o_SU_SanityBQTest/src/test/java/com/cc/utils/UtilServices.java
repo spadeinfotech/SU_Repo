@@ -29,6 +29,9 @@ public class UtilServices extends Startup {
 				|| Double.compare(countdifference, Double.valueOf(0.0)) < 0) {
 			lib.setExcelValueGeneric(scenarioname, teststep, 8, "Fail",file);
 			System.out.println("not matching condition");
+		String Failedscenarios=	lib.getExcelValuegeneric(scenarioname, teststep, 2, file);
+			System.out.println( Failedscenarios+"is failing for="+Clientid);
+			
 		}
 		}
 	}
