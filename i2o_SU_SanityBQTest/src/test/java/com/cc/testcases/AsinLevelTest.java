@@ -23,7 +23,7 @@ public class AsinLevelTest {
 	 System.out.println("after prestgae");
 	Te.getAllcolumnsDataMart(this.getClass().getSimpleName());
 	 System.out.println("after datamart");
-	this.utilServices.getPreAndMartDiff(this.getClass().getSimpleName(), lib);
+	utilServices.getPreAndMartDiff(this.getClass().getSimpleName(), lib);
 	}
 	
 
