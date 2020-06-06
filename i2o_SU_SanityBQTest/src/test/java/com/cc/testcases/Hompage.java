@@ -11,7 +11,7 @@ import com.cc.filereader.ReadWER;
 import com.cc.readexcel.ExcelLibrary;
 import com.cc.utils.UtilServices;
 
-public class HompeageTest {
+public class Hompage {
 	 ExcelLibrary lib=new ExcelLibrary();
 	ReadWER wer=new ReadWER();
 	public UtilServices utilServices = new UtilServices();

@@ -22,9 +22,9 @@ public class ExcelLibrary {
 
 	public static String filepath = ".\\Testcases\\testscenarios.xlsx";
 
-	public int Getrowcount(String sheetname) throws EncryptedDocumentException, InvalidFormatException, IOException {
+	public int GetrowcountGeneric(String sheetname, String file) throws EncryptedDocumentException, InvalidFormatException, IOException {
 		int ratval = 0;
-		FileInputStream fis = new FileInputStream(filepath);
+		FileInputStream fis = new FileInputStream(file);
 		Workbook wb = WorkbookFactory.create(fis);
 		Sheet s = wb.getSheet(sheetname);
 		ratval = s.getLastRowNum();
@@ -102,7 +102,7 @@ public class ExcelLibrary {
 			// c.setCellType(Cell.CELL_TYPE_STRING);
 			c.setCellType(CellType.STRING);
 			c.setCellValue(val);
-
+//System.out.println("val in exlmethof"+val);
 			FileOutputStream fos = new FileOutputStream(file);
 			wb.write(fos);
 			fos.close();

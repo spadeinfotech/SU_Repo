@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -36,7 +37,7 @@ public void GetDatafromPrestageBQ(String scenarioname) throws JobException, Inte
 			bigquery = Bq.getBigqueryInstance(Clientid);
 			System.out.println("Clientid in testcexeutor" + Clientid);
 			
-			 int Totalteststeps= lib.getrowcount(scenarioname);
+			 int Totalteststeps= lib.GetrowcountGeneric(scenarioname,file);
 			System.out.println("Totalteststeps in main excel" + Totalteststeps);
 
 			for (int teststep = 1; teststep <= Totalteststeps; teststep++) {
@@ -83,7 +84,7 @@ public void GetDatafromPrestageBQ(String scenarioname) throws JobException, Inte
 		bigquery = Bq.getBigqueryInstance(Clientid);
 		System.out.println("Clientid in testcexeutor" + Clientid);
 		
-		int Totalteststeps = lib.Getrowcount(scenarioname);
+		int Totalteststeps = lib.GetrowcountGeneric(scenarioname,file);
 		System.out.println("Totalteststeps in main excel" + Totalteststeps);
 
 		for (int teststep = 1; teststep <= Totalteststeps; teststep++) {
@@ -128,7 +129,7 @@ String QueryMart = wer.getelemnetfromWER(lib.getExcelValuegeneric(scenarioname, 
 	public void getAllcolumnsDatastatic(String scenarioname)
 			throws JobException, InterruptedException, EncryptedDocumentException, InvalidFormatException, IOException {
 
-		int Totalteststeps = lib.Getrowcount(scenarioname);
+		int Totalteststeps = lib.GetrowcountGeneric(scenarioname,file);
 		System.out.println("Totalteststeps in main excel" + Totalteststeps);
 		String querydata1 = null;
 		String querydata2 = null;
@@ -185,10 +186,10 @@ String QueryMart = wer.getelemnetfromWER(lib.getExcelValuegeneric(scenarioname, 
 
 	public void getAllcolumnsPrestage(String scenarioname)
 			throws JobException, InterruptedException, EncryptedDocumentException, InvalidFormatException, IOException {
-
+		try {
 		bigquery = Bq.getBigqueryInstance(Clientid);
 		System.out.println("Clientid in testcexeutor" + Clientid);
-		int Totalteststeps = lib.Getrowcount(scenarioname);
+		int Totalteststeps = lib.GetrowcountGeneric(scenarioname,file);
 		System.out.println("Totalteststeps in main excel" + Totalteststeps);
 
 		for (int teststep = 1; teststep <= Totalteststeps; teststep++) {
@@ -196,15 +197,24 @@ String QueryMart = wer.getelemnetfromWER(lib.getExcelValuegeneric(scenarioname, 
 			String queryLogicalName = lib.getExcelValuegeneric(scenarioname, teststep, 3,file).toString();
 			if (!queryLogicalName.equalsIgnoreCase("") && queryLogicalName != null) {
 				System.out.println(queryLogicalName);
-				String queryprestage = wer.getelemnetfromWER(lib.getExcelValuegeneric(scenarioname, teststep, 3,file),
-						".\\config\\PrestageQueries.properties");
-				String queryprestage_columns = wer.getelemnetfromWER(
-						lib.getExcelValuegeneric(scenarioname, teststep, 3,file) + "_columns",
-						".\\config\\PrestageQueries.properties");
+	String  queryfromxl = wer.getelemnetfromWER(queryLogicalName,".\\config\\PrestageQueries.properties");
+	
+	Boolean isExists=queryfromxl.contains("Scrape_Date");
+	String queryprestage=null;
+	if(isExists==true) {
+		System.out.println("inside 0 if");
+		 queryprestage=utilServices.ReplaceString(queryfromxl);
+	}
+	else {
+		System.out.println("inside else");
+		queryprestage=queryfromxl;
+	}
+    
+
+	String queryprestage_columns = wer.getelemnetfromWER(queryLogicalName + "_columns",".\\config\\PrestageQueries.properties");
+				//System.out.println("queryprestage_columns" + queryprestage_columns);
+				
 				String[] queryprestage_columnList = queryprestage_columns.split(",");
-
-				System.out.println("query" + queryprestage);
-
 				Builder queryBuilder = QueryJobConfiguration.newBuilder(queryprestage);
 				QueryJobConfiguration queryConfig = queryBuilder.build();
 				TableResult returnSet = this.bigquery.query(queryConfig);
@@ -217,26 +227,34 @@ String QueryMart = wer.getelemnetfromWER(lib.getExcelValuegeneric(scenarioname, 
 				
 					GenericReportResponseDto rowObj = util.genericRowMapper(row, fieldList);
 					rowObjList.add(rowObj.getRowMap());
-					// System.out.println("BQdata all columsn" + rowObj);
+					//System.out.println("BQdata all columsn" + rowObj);
 
 				}
 				int writeStep = teststep;
 
 				if (rowObjList.size() > 0) {
 					for (int n = 0, teststep1 = 1; teststep1 <= rowObjList.size(); teststep1++, n++) {
-						// System.out.println("teststep"+teststep1);
+						
 						Map<String, Object> row = rowObjList.get(n);
-						lib.setExcelValueGeneric(scenarioname, writeStep, 4, row.get(queryprestage_columnList[0]).toString(),file);
-						lib.setExcelValueGeneric(scenarioname, writeStep, 5,  row.get(queryprestage_columnList[1]).toString(),file);
+						System.out.println("row"+row);
+						System.out.println("index 0" + row.get(queryprestage_columnList[0]));
+						System.out.println("index 1" + row.get(queryprestage_columnList[1]));
+				
+				lib.setExcelValueGeneric(scenarioname, writeStep, 4, row.get(queryprestage_columnList[0]).toString(),file);
+				lib.setExcelValueGeneric(scenarioname, writeStep, 5,  row.get(queryprestage_columnList[1]).toString(),file);
+					
 						writeStep++;
 					}
 				
 				}
 		
 			}
-
+	
 		}
-
+		}	catch (Exception e) {
+		  	// TODO Auto-generated catch block
+		  	e.printStackTrace();
+		       }	
 	}
 
 public void getAllcolumnsDataMart(String scenarioname)
@@ -245,7 +263,7 @@ public void getAllcolumnsDataMart(String scenarioname)
 		try {
 	bigquery = Bq.getBigqueryInstance(Clientid);
 		System.out.println("Clientid in testcexeutor" + Clientid);
-		int Totalteststeps = lib.Getrowcount(scenarioname);
+		int Totalteststeps = lib.GetrowcountGeneric(scenarioname,file);
 
 		System.out.println("Totalteststeps in main excel" + Totalteststeps);
 		
@@ -254,16 +272,24 @@ public void getAllcolumnsDataMart(String scenarioname)
 			if (!queryLogicalName.equalsIgnoreCase("") && queryLogicalName != null) {	
 				System.out.println(queryLogicalName);
 
-				String querymart = wer.getelemnetfromWER(lib.getExcelValuegeneric(scenarioname, teststep, 3,file),
-						".\\config\\DataMartQueries.properties");
-				String QueryMart_columns = wer.getelemnetfromWER(
-						lib.getExcelValuegeneric(scenarioname, teststep, 3,file) + "_columns",
-						".\\config\\DataMartQueries.properties");
+	String queryfromxl = wer.getelemnetfromWER(queryLogicalName,".\\config\\DataMartQueries.properties");
+	Boolean isExists=queryfromxl.contains("Scrape_Date");
+	String QueryMart=null;
+	if(isExists==true) {
+		System.out.println("inside 0 if");
+		 QueryMart=utilServices.ReplaceString(queryfromxl);
+	}
+	else {
+		System.out.println("inside else");
+		QueryMart=queryfromxl;
+	}
+	
+
+		 
+	String QueryMart_columns = wer.getelemnetfromWER(queryLogicalName + "_columns",".\\config\\DataMartQueries.properties");
 				String[] QueryMart_columnList = QueryMart_columns.split(",");
 
-				System.out.println("query" + querymart);
-
-				Builder queryBuilder = QueryJobConfiguration.newBuilder(querymart);
+				Builder queryBuilder = QueryJobConfiguration.newBuilder(QueryMart);
 
 				QueryJobConfiguration queryConfig = queryBuilder.build();
 				TableResult returnSet = this.bigquery.query(queryConfig);
@@ -298,6 +324,7 @@ public void getAllcolumnsDataMart(String scenarioname)
 			
 		         for (String column : QueryMart_columnList) { 			
 			     lib.setExcelValueGeneric(scenarioname, writeStep, 6,  row.get(column).toString(),file);
+			     System.out.println("column-1"+row.get(column).toString());
 		            }
 		           writeStep++;	
 							 }
